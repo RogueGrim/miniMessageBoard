@@ -14,6 +14,7 @@ app.get('/',(req, res)=>{
     res.render('index',{title:'Mini-Message Board', messages:messages})
 })
 
+//middleware to render new message form
 app.get('/new',(req, res)=>[
     res.render('new')
 ])
@@ -24,6 +25,18 @@ app.post('/new', (req, res)=>{
     messages.push({text: message, user: name, added: new Date()})
     res.redirect('/')
 })
+
+app.post('/',(req,res)=>{
+    const id = req.body.id
+    res.redirect('/details')
+})
+
+app.get('/details/:userId',(req,res)=>{
+    const id  = req.params.userId
+    const data = messages[id]
+    res.render('details',{user: data.user, message: data.text, added: data.added})
+})
+
 const PORT = 3000
 
 app.listen(PORT,()=>{
