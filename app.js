@@ -22,7 +22,7 @@ app.get('/new',(req, res)=>[
 app.post('/new', (req, res)=>{
     const message = req.body.text;
     const name = req.body.user;
-    messages.push({text: message, user: name, added: new Date()})
+    messages.push({ id: messages.length,text: message, user: name, added: new Date()})
     res.redirect('/')
 })
 
@@ -33,7 +33,7 @@ app.post('/',(req,res)=>{
 
 app.get('/details/:userId',(req,res)=>{
     const id  = req.params.userId
-    const data = messages[id]
+    const data = messages.find(message=> message.id == id)
     res.render('details',{user: data.user, message: data.text, added: data.added})
 })
 
