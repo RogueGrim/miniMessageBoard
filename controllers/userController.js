@@ -11,5 +11,13 @@ exports.userMessagesCreateGet = (req, res) => {
 }
 
 exports.userMessagesCreate = async(req, res) => {
-    console.log('messages to create')
+    const  data  = { name: req.body.name, message: req.body.message }
+    await db.insertNewMessage(data)
+    res.redirect('/')
+}
+
+exports.getMessageDetails = async(req, res) => {
+    const data = await db.findMessageDetail(req.params.id)
+    console.log(data)
+    res.render('details',{name: data[0].name, message: data[0].message, time: data[0].time})
 }
