@@ -8,14 +8,18 @@
 <body>
     <%- include('navbar') %>
     <div>
-        <% messages.forEach((message)=>{ %>
-            <div>
-                <h1> <%= message.user %> </h1>
-                <p> <%= message.text %> </p>
-                <p> <%= message.added %> </p>
-                <a href="/details/<%=message.id%>"> <button>View</button></a>
-            </div>
-        <% }) %>
+        <% if(messages) { %>
+            <% messages.forEach((data)=>{ %>
+                <div>
+                    <h1> <%= data.name %> </h1>
+                    <p> <%= data.message %> </p>
+                    <p> <%= data.time %> </p>
+                    <a href="/details/<%=data.id%>"> <button>View</button></a>
+                </div>
+            <% }) %>
+        <% }else{ %>
+            <p>No Messages to Display</p>
+        <% } %>
     </div>
 </body>
 </html>
